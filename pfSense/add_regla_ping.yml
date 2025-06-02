@@ -1,0 +1,8 @@
+---
+- name: Añadir regla temporal para permitir ping (ICMP)
+  hosts: pfsense
+  gather_facts: no
+
+  tasks:
+    - name: Cargar regla ICMP temporal en pf
+      raw: echo "pass in on em1 proto icmp from any to any" | pfctl -f -

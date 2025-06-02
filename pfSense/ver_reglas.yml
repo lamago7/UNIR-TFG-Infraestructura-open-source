@@ -1,0 +1,13 @@
+---
+- name: Ver reglas de firewall (pf)
+  hosts: pfsense
+  gather_facts: no
+
+  tasks:
+    - name: Ejecutar pfctl -sr
+      raw: pfctl -sr
+      register: reglas
+
+    - name: Mostrar reglas activas
+      debug:
+        msg: "{{ reglas.stdout_lines }}"

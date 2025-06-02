@@ -1,0 +1,20 @@
+---
+- name: Añadir y verificar ruta estática en pfSense
+  hosts: pfsense
+  gather_facts: no
+
+  vars:
+    destino_red: "10.20.30.0/24"
+    gateway: "192.168.1.1"
+
+  tasks:
+    - name: Añadir ruta estática
+      raw: route add -net {{ destino_red }} {{ gateway }}
+
+    - name: Verificar ruta añadida (tabla de enrutamiento)
+      raw: netstat -rn
+      register: salida_rutas
+
+    - name: Mostrar tabla de rutas
+      debug:
+        var: salida_rutas.stdout_lines

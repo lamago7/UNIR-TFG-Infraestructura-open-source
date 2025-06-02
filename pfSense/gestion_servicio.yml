@@ -1,0 +1,22 @@
+---
+- name: Gestionar servicios en pfSense
+  hosts: pfsense
+  gather_facts: no
+
+  vars:
+    servicio: ""
+    accion: ""
+
+  tasks:
+    - name: Validar que se ha proporcionado el nombre del servicio
+      fail:
+        msg: "Debes indicar un servicio usando --extra-vars 'servicio=nombre accion=onestart|onestop'"
+      when: servicio == "" or accion == ""
+
+    - name: Ejecutar '{{ accion }}' sobre '{{ servicio }}'
+      raw: service {{ servicio }} {{ accion }}
+      register: resultado
+
+    - name: Mostrar resultado del comando
+      debug:
+        var: resultado.stdout_lines

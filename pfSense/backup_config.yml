@@ -1,0 +1,24 @@
+---
+- name: Backup configuración de pfSense
+  hosts: pfsense
+  gather_facts: no
+
+  vars:
+    fecha: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+    ruta_backup: "/root/config_backup_{{ fecha }}.xml"
+
+  tasks:
+    - name: Crear backup XML en el sistema pfSense
+      raw: cp /cf/conf/config.xml {{ ruta_backup }}
+
+    - name: Esperar que el archivo esté disponible
+      raw: test -f {{ ruta_backup }}
+      register: resultado
+      retries: 3
+      delay: 1
+      until: resultado.rc == 0
+
+    - name: Descargar backup al controlador Ansible (vía scp manual)
+      delegate_to: localhost
+      ansible.builtin.shell: >
+        scp -o StrictHostKeyChecking=no admin@172.21.1.1:{{ ruta_backup }} ./respaldos/
