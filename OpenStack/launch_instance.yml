@@ -1,0 +1,13 @@
+---
+- name: Lanzar instancia en OpenStack
+  hosts: localhost
+  tasks:
+    - name: Lanzar instancia
+      os_server:
+        cloud: devstack
+        state: present
+        name: mi_instancia
+        image: Ubuntu-20.04
+        flavor: m1.small
+        key_name: clave_admin
+        network: red-interna

@@ -1,0 +1,17 @@
+---
+- name: Lanzar instancia con metadatos personalizados
+  hosts: localhost
+  tasks:
+    - name: Lanzar instancia con metadata
+      os_server:
+        cloud: devstack
+        state: present
+        name: mi_instancia_con_metadata
+        image: Ubuntu-20.04
+        flavor: m1.small
+        key_name: clave_admin
+        network: red-interna
+        meta:
+          proyecto: unir
+          autor: estudiante
+          uso: pruebas_tfg

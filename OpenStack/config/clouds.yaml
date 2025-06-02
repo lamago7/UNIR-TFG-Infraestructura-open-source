@@ -1,0 +1,12 @@
+clouds:
+  devstack:
+    auth:
+      auth_url: http://192.168.1.159/identity
+      username: admin
+      password: stack
+      project_name: admin
+      user_domain_name: Default
+      project_domain_name: Default
+    region_name: RegionOne
+    interface: public
+    identity_api_version: 3

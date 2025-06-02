@@ -1,0 +1,12 @@
+---
+- name: Subir imagen a OpenStack
+  hosts: localhost
+  tasks:
+    - name: Subir imagen Ubuntu 20.04
+      os_image:
+        cloud: devstack
+        state: present
+        name: Ubuntu-20.04
+        disk_format: qcow2
+        container_format: bare
+        filename: /home/stack/imagenes/ubuntu-20.04.qcow2

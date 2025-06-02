@@ -1,0 +1,10 @@
+---
+- name: Crear par de claves SSH en OpenStack
+  hosts: localhost
+  tasks:
+    - name: Subir clave pública local
+      os_keypair:
+        cloud: devstack
+        state: present
+        name: clave_admin
+        public_key_file: ~/.ssh/id_rsa.pub

@@ -1,0 +1,20 @@
+---
+- name: Crear redes virtuales en OpenStack
+  hosts: localhost
+  tasks:
+    - name: Crear red interna
+      os_network:
+        cloud: devstack
+        state: present
+        name: red-interna
+
+    - name: Crear subred
+      os_subnet:
+        cloud: devstack
+        state: present
+        name: subred-interna
+        network_name: red-interna
+        cidr: 192.168.100.0/24
+        ip_version: 4
+        dns_nameservers:
+          - 8.8.8.8
