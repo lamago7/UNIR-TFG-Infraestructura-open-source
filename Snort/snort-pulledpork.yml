@@ -1,0 +1,29 @@
+---
+- name: Instalar y configurar PulledPork para actualizar reglas en Snort
+  hosts: snort_host
+  become: yes
+  tasks:
+    - name: Instalar dependencias necesarias
+      apt:
+        name:
+          - perl
+          - libwww-perl
+          - libcrypt-ssleay-perl
+          - unzip
+        state: present
+
+    - name: Clonar repositorio de PulledPork
+      git:
+        repo: 'https://github.com/shirkdog/pulledpork.git'
+        dest: /opt/pulledpork
+
+    - name: Copiar configuración personalizada de PulledPork
+      copy:
+        src: files/pulledpork.conf
+        dest: /opt/pulledpork/etc/pulledpork.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Ejecutar PulledPork para actualizar reglas
+      command: perl /opt/pulledpork/pulledpork.pl -c /opt/pulledpork/etc/pulledpork.conf

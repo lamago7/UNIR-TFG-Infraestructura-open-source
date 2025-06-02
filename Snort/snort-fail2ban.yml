@@ -1,0 +1,22 @@
+---
+- name: Configurar Fail2Ban para proteger Snort y SSH
+  hosts: snort_host
+  become: yes
+  tasks:
+    - name: Instalar Fail2Ban
+      apt:
+        name: fail2ban
+        state: present
+
+    - name: Copiar configuración personalizada de jail.local
+      copy:
+        src: files/jail.local
+        dest: /etc/fail2ban/jail.local
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Reiniciar Fail2Ban para aplicar configuración
+      service:
+        name: fail2ban
+        state: restarted
