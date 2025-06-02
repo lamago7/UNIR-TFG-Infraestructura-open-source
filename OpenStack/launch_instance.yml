@@ -1,13 +1,18 @@
 ---
-- name: Lanzar instancia en OpenStack
+- name: Lanzar instancia Cirros en red_lan
   hosts: localhost
+  gather_facts: no
+  collections:
+    - openstack.cloud
+
   tasks:
-    - name: Lanzar instancia
-      os_server:
+    - name: Lanzar la instancia
+      openstack.cloud.server:
         cloud: devstack
         state: present
-        name: mi_instancia
-        image: Ubuntu-20.04
-        flavor: m1.small
-        key_name: clave_admin
-        network: red-interna
+        name: instancia_ansible
+        image: Cirros-0.6.3-x86_64-disk
+        flavor: m1.tiny
+        key_name: mi_llave_ssh
+        network: red_lan
+        auto_ip: no
