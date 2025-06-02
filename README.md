@@ -6,3 +6,9 @@ Repositorio del Trabajo de Fin de Grado donde se incluye automatización con Ans
 - pfSense
 - S.O.R.T
 - Wazuh
+
+**Trabajo de Fin de Grado - UNIR**
+
+**Alumno:** LMG
+
+**Curso:** Adaptación al Grado en Ingeniería Informática
