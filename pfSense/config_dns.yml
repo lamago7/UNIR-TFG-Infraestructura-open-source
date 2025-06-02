@@ -1,0 +1,9 @@
+---
+- name: Configurar DNS en pfSense
+  hosts: pfsense
+  gather_facts: no
+  tasks:
+    - name: Establecer servidor DNS principal
+      raw: echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
+    - name: Establecer servidor DNS secundario
+      raw: echo 'nameserver 8.8.4.4' >> /etc/resolv.conf

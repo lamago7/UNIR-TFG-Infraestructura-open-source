@@ -1,0 +1,20 @@
+---
+- name: Monitorear estado del sistema pfSense
+  hosts: pfsense
+  gather_facts: no
+  tasks:
+    - name: Obtener uso de CPU
+      raw: top -bn1 | grep "CPU"
+      register: cpu_usage
+
+    - name: Obtener uso de memoria
+      raw: top -bn1 | grep "Mem"
+      register: mem_usage
+
+    - name: Mostrar estado de CPU
+      debug:
+        var: cpu_usage.stdout_lines
+
+    - name: Mostrar estado de memoria
+      debug:
+        var: mem_usage.stdout_lines

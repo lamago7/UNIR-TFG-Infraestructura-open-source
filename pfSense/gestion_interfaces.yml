@@ -1,0 +1,12 @@
+---
+- name: Mostrar configuración de interfaces de red
+  hosts: pfsense
+  gather_facts: no
+  tasks:
+    - name: Ejecutar ifconfig
+      raw: ifconfig
+      register: interfaces
+
+    - name: Mostrar interfaces
+      debug:
+        var: interfaces.stdout_lines
