@@ -1,20 +1,37 @@
 ---
-- name: Crear redes virtuales en OpenStack
+- name: Crear redes y subredes en Openstack
   hosts: localhost
+  gather_facts: false
   tasks:
-    - name: Crear red interna
-      os_network:
-        cloud: devstack
-        state: present
-        name: red-interna
 
-    - name: Crear subred
-      os_subnet:
+    - name: Crear red DMZ
+      openstack.cloud.network:
         cloud: devstack
         state: present
-        name: subred-interna
-        network_name: red-interna
-        cidr: 192.168.100.0/24
-        ip_version: 4
-        dns_nameservers:
-          - 8.8.8.8
+        name: red_dmz
+
+    - name: Crear subred DMZ
+      openstack.cloud.subnet:
+        cloud: devstack
+        state: present
+        name: subred_dmz
+        network_name: red_dmz
+        cidr: 10.0.10.0/24
+        gateway_ip: 10.0.10.1
+        enable_dhcp: false
+
+    - name: Crear red LAN
+      openstack.cloud.network:
+        cloud: devstack
+        state: present
+        name: red_LAN
+
+    - name: Crear subred LAN
+      openstack.cloud.subnet:
+        cloud: devstack
+        state: present
+        name: subred_LAN
+        network_name: red_LAN
+        cidr: 172.21.1.0/24
+        gateway_ip: 172.21.1.1
+        enable_dhcp: true
