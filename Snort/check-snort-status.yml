@@ -1,0 +1,16 @@
+---
+- name: Verificar el estado del servicio Snort
+  hosts: snort_host
+  become: yes
+  tasks:
+    - name: Comprobar si Snort está en ejecución
+      service_facts:
+
+    - name: Mostrar estado del servicio Snort
+      debug:
+        msg: >
+          El estado de Snort es {{
+            ansible_facts.services['snort.service'].state
+            if 'snort.service' in ansible_facts.services
+            else 'no encontrado'
+          }}

@@ -1,0 +1,15 @@
+---
+- name: Instalar Snort en el host
+  hosts: snort_host
+  become: yes
+  tasks:
+    - name: Actualizar el índice de paquetes
+      apt:
+        update_cache: yes
+
+    - name: Instalar dependencias necesarias
+      apt:
+        name:
+          - snort
+          - snort-rules-default
+        state: present
