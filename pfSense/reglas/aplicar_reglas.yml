@@ -1,0 +1,12 @@
+---
+- name: Aplicar reglas de firewall en pfSense
+  hosts: pfsense
+  become: yes
+  tasks:
+    - name: Aplicar configuración de firewall
+      uri:
+        url: "https://{{ inventory_hostname }}/api/v1/firewall/apply"
+        method: POST
+        headers:
+          Authorization: "Bearer {{ api_token }}"
+        validate_certs: no

@@ -1,0 +1,21 @@
+---
+- name: Abrir puerto HTTP (80) en pfSense
+  hosts: pfsense
+  become: yes
+  tasks:
+    - name: Añadir regla para permitir tráfico HTTP
+      uri:
+        url: "https://{{ inventory_hostname }}/api/v1/firewall/rules"
+        method: POST
+        headers:
+          Authorization: "Bearer {{ api_token }}"
+          Content-Type: "application/json"
+        body_format: json
+        body:
+          interface: "wan"
+          action: "pass"
+          protocol: "tcp"
+          destination:
+            port: 80
+          description: "Permitir HTTP"
+        validate_certs: no
