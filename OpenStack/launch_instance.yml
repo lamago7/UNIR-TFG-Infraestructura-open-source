@@ -11,7 +11,7 @@
         cloud: devstack
         state: present
         name: instancia_ansible
-        image: Cirros-0.6.3-x86_64-disk
+        image: cirros-0.6.3-x86_64-disk
         flavor: m1.tiny
         key_name: mi_llave_ssh
         network: red_lan
