@@ -1,4 +1,4 @@
-# UNIR-TFG - Infraestructura open source
+# UNIR-TFG - Infraestructura Open Source
 
 Repositorio del Trabajo de Fin de Grado donde se incluye automatización con Ansible.
 
@@ -7,7 +7,7 @@ Repositorio del Trabajo de Fin de Grado donde se incluye automatización con Ans
 - Snort
 - Wazuh
 
-**Trabajo de Fin de Grado - UNIR**
+**Trabajo de Fin de Grado** - UNIR
 
 **Alumno:** LMG
 
