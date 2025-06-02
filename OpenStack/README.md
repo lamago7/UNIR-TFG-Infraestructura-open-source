@@ -1,7 +1,3 @@
-# UNIR-TFG - Infraestructura Open Source con Ansible y OpenStack
-
-Este repositorio contiene los scripts y playbooks utilizados en el Trabajo de Fin de Grado (TFG) para desplegar y automatizar infraestructura utilizando **OpenStack** y **Ansible**.
-
 ## Estructura del repositorio
 
 ```
@@ -16,8 +12,8 @@ OpenStack/
 │   ├── security_groups.yml
 │   ├── upload_image.yml
 │   ├── instance_metadata.yml
-├── crear_redes.yml
-└── launch_instance.yml
+│   └── crear_redes.yml
+│   └── launch_instance.yml
 ```
 
 ## Descripción de archivos
@@ -42,13 +38,6 @@ OpenStack/
 
 Ejecutar cada playbook con:
 
-```bash
+```
 ansible-playbook -i inventory/inventory.yml nombre_playbook.yml
 ```
-
-## Autor
-
-Trabajo de Fin de Grado - UNIR  
-Alumno: [Tu Nombre Aquí]  
-Grado en Ingeniería Informática
-
