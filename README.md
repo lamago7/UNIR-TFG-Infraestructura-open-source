@@ -4,7 +4,7 @@ Repositorio del Trabajo de Fin de Grado donde se incluye automatización con Ans
 
 - OpenStack
 - pfSense
-- S.O.R.T
+- Snort
 - Wazuh
 
 **Trabajo de Fin de Grado - UNIR**
