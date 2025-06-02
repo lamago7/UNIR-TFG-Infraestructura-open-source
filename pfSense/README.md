@@ -1,46 +1,50 @@
 # pfSense - Automatización con Ansible
 
-Este directorio contiene los *playbooks* y archivos de inventario utilizados para automatizar la gestión de **pfSense** mediante **Ansible**.
+Este directorio contiene playbooks de Ansible diseñados para gestionar y automatizar tareas en un firewall pfSense.
 
-## Contenido del directorio
+## Estructura del directorio
 
-- `inventory.ini`: Archivo de inventario con los datos de conexión al firewall pfSense.
-- `ver_reglas.yml`: Muestra las reglas activas del firewall (pf).
-- `add_regla_ping.yml`: Añade una regla temporal para permitir ICMP (ping).
-- `config_ruta.yml`: Añade una ruta estática a la tabla de enrutamiento.
-- `backup_config.yml`: Realiza una copia de seguridad del archivo de configuración de pfSense y lo descarga al host controlador.
-- `gestion_servicio.yml`: Inicia o detiene servicios en pfSense mediante variables externas.
+```
+pfSense/
+├── inventory.ini
+├── backup_config.yml
+├── config_ruta.yml
+├── reglas/
+│   ├── ver_reglas.yml
+│   ├── add_regla_ping.yml
+│   ├── abrir_puerto_http.yml
+│   ├── aplicar_reglas.yml
+├── red/
+│   ├── configurar_interface_em1.yml
+│   ├── configurar_dns.yml
+├── servicios/
+│   └── gestion_servicio.yml
+```
+
+## Descripción de Playbooks
+
+- `inventory.ini`: Archivo de inventario de Ansible para conexión SSH con pfSense.
+- `backup_config.yml`: Realiza backup de la configuración del sistema pfSense en formato XML.
+- `config_ruta.yml`: Añade y verifica rutas estáticas.
+- `reglas/ver_reglas.yml`: Muestra las reglas de firewall activas.
+- `reglas/add_regla_ping.yml`: Añade regla temporal para permitir ICMP (ping).
+- `reglas/abrir_puerto_http.yml`: Abre el puerto 80 (HTTP) en pf.
+- `reglas/aplicar_reglas.yml`: Recarga las reglas de firewall (`pfctl -f`).
+- `red/configurar_interface_em1.yml`: Configura la IP en una interfaz.
+- `red/configurar_dns.yml`: Establece los DNS del sistema.
+- `servicios/gestion_servicio.yml`: Permite iniciar o detener servicios en pfSense.
 
 ## Requisitos
 
 - Acceso SSH habilitado en pfSense.
-- Usuario con permisos administrativos (por defecto: `admin`).
-- Python no es necesario en el host remoto, se utiliza `raw` y se define `ansible_python_interpreter=/bin/sh`.
+- Usuario con permisos administrativos.
+- Ansible instalado en el controlador.
+- Interpretador shell disponible (`/bin/sh`).
 
-## Ejecución de los playbooks
-
-Ejecutar cualquier playbook usando el inventario proporcionado:
-
-```bash
-ansible-playbook -i inventory.ini nombre_playbook.yml
-```
-
-### Ejemplo para ver reglas del firewall:
+## Uso
 
 ```bash
-ansible-playbook -i inventory.ini ver_reglas.yml
-```
-
-### Ejemplo para añadir una ruta estática:
-
-```bash
-ansible-playbook -i inventory.ini config_ruta.yml
-```
-
-### Ejemplo para iniciar o detener un servicio:
-
-```bash
-ansible-playbook -i inventory.ini gestion_servicio.yml --extra-vars "servicio=sshd accion=onestart"
+ansible-playbook -i inventory.ini <playbook>.yml
 ```
 
 ## Autor
